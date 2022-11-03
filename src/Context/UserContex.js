@@ -14,9 +14,11 @@ const githubProvider= new GithubAuthProvider()
 
 
 const createUser=(email,password)=>{
+   setLoading(true)
     return createUserWithEmailAndPassword(auth,email,password)
 }
 const signIn=(email,password)=>{
+   setLoading(true)
     return signInWithEmailAndPassword(auth,email,password)
 }
  const signInGoogle=()=>{
@@ -35,8 +37,9 @@ const signIn=(email,password)=>{
 
 useEffect(()=>{
   const unsubscribe= onAuthStateChanged(auth,currentUser=>{
-    console.log(currentUser)
        setUser(currentUser)
+      setLoading(false)
+      console.log(currentUser)
     })
  return ()=>{
   return  unsubscribe()

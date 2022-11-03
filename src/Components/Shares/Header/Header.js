@@ -56,7 +56,7 @@ const handleLogout = () =>{
             </li>
             <li>
              <Link 
-               to="/services"
+               to="/orders"
                  className="font-semibold text-lg tracking-wide text-slate-900 transition-colors duration-200 hover:text-teal-accent-400"
               >
                 Services
@@ -80,7 +80,7 @@ const handleLogout = () =>{
             </li>
           </ul>
           <ul  className="flex items-center hidden space-x-8 lg:flex">
-            {user?.email ? <>
+            {user?.uid ? <>
             <p className='text-black'>{user?.displayName}</p>
             <button 
               onClick={handleLogout}
