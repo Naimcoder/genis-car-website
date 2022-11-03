@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { FaFacebookF, FaGithub, FaGoogle } from "react-icons/fa";
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import login from '../../../assets/images/login/login.svg';
 import { AuthContext } from '../../../Context/UserContex';
 import Swal from 'sweetalert2'
@@ -9,7 +9,9 @@ import toast from 'react-hot-toast';
 const Login = () => {
 const [userEmail,setUserEmail]=useState('')
 const {signIn,signInGithub,signInGoogle,resetPassword}=useContext(AuthContext)
-
+const navigate =useNavigate()
+const location= useLocation()
+ const froms = location.state?.from?.pathname || '/';
 
 const handleGoogleSign=()=>{
   signInGoogle()
@@ -57,6 +59,7 @@ const handleSubmit=(event)=>{
   'success'
  )
 from.reset()
+  navigate(froms,{replace:true})
     })
     .catch(error=>{
       console.error(error)

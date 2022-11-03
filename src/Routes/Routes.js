@@ -5,6 +5,7 @@ import Login from "../Components/Pages/Login/Login";
 import Order from "../Components/Pages/Order/Order";
 import Register from "../Components/Pages/Register/Register";
 import Root from "../Layout/Root";
+import PrivateRouter from "./PrivateRouter";
 
  const router = createBrowserRouter([
     {
@@ -25,7 +26,7 @@ import Root from "../Layout/Root";
             },
             {
                 path:'/checkout/:id',
-                element:<CheckOut></CheckOut>,
+                element:<PrivateRouter><CheckOut></CheckOut></PrivateRouter>,
                 loader: ({params})=>{
                     return fetch(`http://localhost:5000/services/${params.id}`)
                 }
@@ -34,7 +35,7 @@ import Root from "../Layout/Root";
             {
                 path:'/orders',
                 element:<Order></Order>
-            }
+            },
             
         ]
     }
