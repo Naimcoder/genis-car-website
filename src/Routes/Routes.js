@@ -32,7 +32,9 @@ const router = createBrowserRouter([
           </PrivateRouter>
         ),
         loader: ({ params }) => {
-          return fetch(`http://localhost:5000/services/${params.id}`);
+          return fetch(
+            `https://genis-car-server.vercel.app/services/${params.id}`
+          );
         },
       },
       {

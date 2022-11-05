@@ -9,7 +9,8 @@ import { setAuthToken } from "../../../Utlits/Apis";
 
 const Login = () => {
   const [userEmail, setUserEmail] = useState("");
-  const { signIn, signInGithub, signInGoogle, resetPassword } = useContext(AuthContext);
+  const { signIn, signInGithub, signInGoogle, resetPassword } =
+    useContext(AuthContext);
   const navigate = useNavigate();
   const location = useLocation();
   const froms = location.state?.from?.pathname || "/";
@@ -19,8 +20,7 @@ const Login = () => {
       .then((result) => {
         const user = result.user;
         console.error(user);
-        setAuthToken(user)
-
+        setAuthToken(user);
       })
       .catch((error) => {
         console.error(error);
@@ -60,7 +60,7 @@ const Login = () => {
           email: user.email,
         };
         console.log(currentUser);
-        fetch("http://localhost:5000/jwt", {
+        fetch("https://genis-car-server.vercel.app/jwt", {
           method: "POST",
           headers: {
             "content-Type": "application/json",
