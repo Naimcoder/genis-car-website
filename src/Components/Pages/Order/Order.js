@@ -5,14 +5,25 @@ import OrderRow from './OrderRow';
 
 
 const Order = () => {
-    const {user}= useContext(AuthContext)
+    const {user,logOut}= useContext(AuthContext)
     const [orders,setOrders]=useState([])
 
     useEffect(()=>{
-        fetch(`http://localhost:5000/orders?email`)
-        .then(res=>res.json())
-        .then(data=>setOrders(data))
-    } ,[user?.email])
+        fetch(`http://localhost:5000/orders?email=${user?.email}`,{
+          headers: {
+            authorization:`Bearer ${localStorage.getItem('genis-Car-Token')}`
+          }
+        })
+        .then(res=>{
+          if(res.status===401|| res.status===403){
+           return logOut()
+          }
+        return  res.json()
+      })
+        .then(data=>{
+          setOrders(data)
+        })
+    } ,[user?.email,logOut])
     console.log(orders)
     
    const handleDeleted=id=>{
@@ -89,3 +100,20 @@ const Order = () => {
 };
 
 export default Order;
+
+
+// function veryfijwt(req,res,next){
+// const authHeader=(req.headers.authorization)
+// if (!authHeader) {
+//     res.status(401).send({massage:'unathorized access'})
+// }
+// const token= authHeader.split(' ')[1];
+// jwt.verify(token,process.env.ACCESS_TOKEN_SECRET,function(err,decoded){
+//  if (err) {
+//      res.status(401).send({massage:'unathorized access'})
+//  }
+//  req.decoded=decoded
+//  next()
+
+// })
+// }

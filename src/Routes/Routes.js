@@ -7,37 +7,43 @@ import Register from "../Components/Pages/Register/Register";
 import Root from "../Layout/Root";
 import PrivateRouter from "./PrivateRouter";
 
- const router = createBrowserRouter([
-    {
-        path:'/',
-        element:<Root></Root>,
-        children:[
-            {
-                path:'/',
-                element:<Home></Home>
-            },
-            {
-             path:'login',
-             element:<Login></Login>
-            },
-            {
-                path:'/signup',
-                element:<Register></Register>
-            },
-            {
-                path:'/checkout/:id',
-                element:<PrivateRouter><CheckOut></CheckOut></PrivateRouter>,
-                loader: ({params})=>{
-                    return fetch(`http://localhost:5000/services/${params.id}`)
-                }
-                
-            },
-            {
-                path:'/orders',
-                element:<Order></Order>
-            },
-            
-        ]
-    }
-])
-export default router
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Root></Root>,
+    children: [
+      {
+        path: "/",
+        element: <Home></Home>,
+      },
+      {
+        path: "login",
+        element: <Login></Login>,
+      },
+      {
+        path: "/signup",
+        element: <Register></Register>,
+      },
+      {
+        path: "/checkout/:id",
+        element: (
+          <PrivateRouter>
+            <CheckOut></CheckOut>
+          </PrivateRouter>
+        ),
+        loader: ({ params }) => {
+          return fetch(`http://localhost:5000/services/${params.id}`);
+        },
+      },
+      {
+        path: "/orders",
+        element: (
+          <PrivateRouter>
+            <Order></Order>
+          </PrivateRouter>
+        ),
+      },
+    ],
+  },
+]);
+export default router;
